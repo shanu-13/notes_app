@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sticky Notes App</title>
+  <link href="stylesheet" href="styles.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="index.js"></script>
+</head>
+<body>
+    <div class="bg-sky-200 min-h-screen p-4">
+    
+      <div class="text-center mt-10 font-bold text-3xl text-black mb-10 "><h1>Sticky Notes App</h1></div>
+      <nextion class="text-center mt-10 font-bold text-1xl text-black mb-10 ">
+        <h1>Click the "New" button to create a new sticky note. You can edit the note and it will be saved automatically.</h1>
+      </nextion><br/>
+      <div class="flex justify-center mb-5 gap-4 ">
+        <button id="addNote" class=" static text-md  font-bold text-white bg-green-800 hover:bg-green-700 px-5 py-2 rounded  p-5 " onclick=openNoteDialog()>New </button>
+        <button id="deleteNote" class="static text-md font-bold text-white bg-red-800 hover:bg-red-700 px-5 py-2 rounded  p-5 " onclick="closeAllNote()">Delete All </button>
+        <br/>
+      </div>
+   
+    </div>
+ 
+   
+      
+  
+  
+    //////
+    
+    <!-- <div id="app">
+      <div class="flex justify-center mb-5 gap-4 ">
+        <button id="addNote" class=" static text-md  font-bold text-white bg-green-800 hover:bg-green-700 px-5 py-2 rounded  p-5 ">New </button>
+        <button id="deleteNote" class="static text-md font-bold text-white bg-red-800 hover:bg-red-700 px-5 py-2 rounded  p-5 ">Delete All </button>
+        <br/>
+      </div>
+     
+      <div id="notesContainer"  class=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  bg-pink-900 gap-9 p-7">
+        <div  id="textContent" class=" relative rounded min-h-20 p-3 bg-[#fff9c4] shadow-[2px_2px_10px_rgba(0,0,0,1)]  resize-both  border-none outline-none cursor-text">
+         <button type="button" id="deleteBtn"class="absolute right-3 top-2 bg-red-800 rounded-full w-7 h-7  font-bold hover:bg-red-700" >X</button>
+          <button type="button" id="editBtn" class="absolute right-12 top-2 bg-red-800 rounded-full w-7 h-7  font-bold hover:bg-red-700 " >E</button>
+      <div  id="textArea" class=" "></div>
+    </div>  -->
+
+    ///////////
+    //
+    <main id="notesContainer" class="notes-grid">
+      
+    </main>
+    <dialog id="noteDialog" >
+      <div id="dialog-content" class="bg-pink-900 p-20 rounded" >
+        <div id="dialog-header" >
+          <h2  id="dialogTitle" class="text-md  font-bold text-white gap-4">Add New Note</h2>
+          <button id="close-btn"  class=" absolute right-3 top-2 bg-white rounded-full w-7 h-7  font-bold hover:bg-gray-300" onclick="closeNotedialog()">X</button>
+          <button type="button" id="editBtn" class=" absolute right-12 top-2 bg-white rounded-full w-7 h-7  font-bold hover:bg-gray-300 " onclick="editNotedialog()" >E</button>
+        </div>
+        <form id="noteForm" class="grid grid-rows-2 gap-2">
+          <div id="form-group" class="">
+            <label for="noteTitle" id="form-label" class="text-md  font-bold text-white">Title:</label>
+            <input type="text" id="noteTitle" id="form-input" class="border outline-gray-100 rounded-half" placeholder="Enter note title..." required>
+          </div>
+          <div class="from-group">
+            <label fr="noteContent" id="form-label" class="text-md  font-bold text-white">Content:</label>
+            <textarea id="noteContent" class="form-textarea" placeholder="Write your note here"  class="rounded-half border-none outline-gray-100 h-20 "required></textarea>
+          </div>
+          <div id="dialog-actions"  class="flex justify-end gap-2">
+            <button type="button" id="cancel-btn" onclick="closeNoteDialog()" class="text-md  hover:bg-pink-200 font-bold text-black bg-white rounded-full px-5 py-2 p-5 " >cancel</button>
+            <button type="button" id="save-btn" onclick="saveNoteDialog()" class="text-md hover:bg-pink-200 font-bold text-black bg-white px-5 py-2 rounded-full p-5">save</button>
+          </div>
+      
+        </form>
+      </div>
+    </dialog>  
+
+        
+    </div>
+     
+  </div>
+  
+</body>
+</html>
+        
+      
+        
+  
