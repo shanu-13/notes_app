@@ -105,24 +105,101 @@ function backupNotes() {
   URL.revokeObjectURL(url);
 }
 
-let notes=[]
-function openNoteDialog(){
-  console.log("open")
-  const dialog=document.getElementById('noteDialog');
-  const titleInput=document.getElementById('noteTitle');
-  const contentInput=document.getElementById('noteContent');
+///start 
 
-  dialog.showModal()
-  titleInput.focus()
- }
- function closeNoteDialog(){
-  document.getElementById('noteDialog').close()
- }
- document.addEventListener('DOMContentLoaded',function() {
-  document.getElementById('noteDialog').addEventListener('click',function(e){
-    if(e.target===this){
-      closeNoteDialog()
 
+let notes = [];
+
+function loadNotes(){
+  const savedNotes=localStorage.getItem('quickNotes')
+  return savedNotes ? JSON.parse(savedNotes) : []
+}
+
+// Load notes from localStorage when page loads
+document.addEventListener("DOMContentLoaded", function () {
+  notes=loadNotes()
+  renderNotes()
+
+  const savedNotes = localStorage.getItem("quickNotes");
+
+  if (savedNotes) {
+    notes = JSON.parse(savedNotes);
+  }
+
+  document.getElementById("noteForm").addEventListener("submit", saveNote);
+
+  document.getElementById("noteDialog").addEventListener("click", function (e) {
+    if (e.target === this) {
+      closeNoteDialog();
     }
-  })
- })
+  });
+
+});
+
+document.getElementById("noteForm").addEventListener("submit", saveNote);
+function saveNote(e) {
+  e.preventDefault();
+
+  const title = document.getElementById("noteTitle").value.trim();
+  const content = document.getElementById("noteContent").value.trim();
+
+  if (title === "" || content === "") {
+    alert("Please fill all fields");
+    return;
+  }
+
+  const note = {
+    id: generateId(),
+    title: title,
+    content: content
+  };
+
+  notes.unshift(note);
+
+  saveNotes();
+
+  document.getElementById("noteForm").reset();
+
+  closeNoteDialog();
+}
+
+function generateId() {
+  return Date.now().toString();
+}
+
+function saveNotes() {
+  localStorage.setItem("quickNotes", JSON.stringify(notes));
+}
+
+function renderNotes(){
+  const notesContainer=document.getElementById('notesContainer');
+  if(notes.length === 0){
+    notesContainer.innerHTML=`
+    <div class="empty-state">
+      <h2>No notes yet</h2>
+      <p>Create your note!</p>
+      <button class="add-note-btn" onclick="openNoteDialog()">+ Add Your First Note</button>
+    </div>   `
+    return
+  }
+  notesContainer.innerHTML=notes.map(note => `
+    <div class="note-card">
+      <h3 class="note-title">${note.title}</h3>
+      <p class="note-container">${note.content}</p>
+    </div>
+    `
+  ).join('')
+}
+
+function openNoteDialog() {
+  const dialog = document.getElementById("noteDialog");
+  const titleInput = document.getElementById("noteTitle");
+
+  dialog.showModal();
+  titleInput.focus();
+}
+
+function closeNoteDialog() {
+  document.getElementById("noteDialog").close();
+}
+
